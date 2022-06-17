@@ -114,8 +114,11 @@ static inline char *z_stack_ptr_align(char *ptr)
  * elsewhere into scope.
  *
  * @param sym Thread stack symbol name
+ * @param size Size of the stack memory region
  */
-#define K_KERNEL_STACK_EXTERN(sym) extern k_thread_stack_t sym[]
+#define K_KERNEL_STACK_EXTERN(sym, size) \
+	extern struct z_thread_stack_element \
+		sym[Z_KERNEL_STACK_SIZE_ADJUST(size)]
 
 /**
  * @addtogroup thread_stack_api
@@ -403,8 +406,11 @@ static inline char *Z_KERNEL_STACK_BUFFER(k_thread_stack_t *sym)
  * elsewhere into scope.
  *
  * @param sym Thread stack symbol name
+ * @param size Size of the stack memory region
  */
-#define K_THREAD_STACK_EXTERN(sym) extern k_thread_stack_t sym[]
+#define K_THREAD_STACK_EXTERN(sym, size) \
+	extern struct z_thread_stack_element \
+		sym[Z_THREAD_STACK_SIZE_ADJUST(size)]
 
 /**
  * @brief Obtain an extern reference to a thread stack array
